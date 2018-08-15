@@ -68,11 +68,11 @@ namespace fidder
             int iPort = 8877;
             //启动代理程序，开始监听http请求
             //端口,是否使用windows系统代理（如果为true，系统所有的http访问都会使用该代理）我使用的是
-            Fiddler.FiddlerApplication.Startup(iPort, false, false, true);
+            Fiddler.FiddlerApplication.Startup(iPort, false, true, true);
 
             // 我们还将创建一个HTTPS监听器，当FiddlerCore被伪装成HTTPS服务器有用
             // 而不是作为一个正常的CERN样式代理服务器。
-            oSecureEndpoint = FiddlerApplication.CreateProxyEndpoint(iSecureEndpointPort, true, sSecureEndpointHostname);
+            //oSecureEndpoint = FiddlerApplication.CreateProxyEndpoint(iSecureEndpointPort, true, sSecureEndpointHostname);
             txtlog.AppendText("启动代理成功" + Environment.NewLine);
 
             List<Fiddler.Session> oAllSessions = new List<Fiddler.Session>();
@@ -218,7 +218,7 @@ namespace fidder
 
                 for (int i = 0; i < dataList.Count; i++)
                 {
-                    if (dataList[i].id != rf.GetStr(two, "\"id\":", ","))
+                    if (dataList[i].id == rf.GetStr(two, "\"id\":", ","))
                     {
                         content = dataList[i].content;
                         dataList.Remove(dataList[i]);
